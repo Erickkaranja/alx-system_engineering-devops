@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# an infinite loop displaying To infinity and beyond.
+
+i=0
+
+while(( i < 10 ))
+do
+    echo "To infinity and beyond"
+    sleep 2
+i=$((i-1))
+done
