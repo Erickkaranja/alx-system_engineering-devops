@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# sorts data according to the occurence of an ip address.
+
+awk '{print $1 " " $9}' apache-access.log | sort | uniq -c | sort -rn
