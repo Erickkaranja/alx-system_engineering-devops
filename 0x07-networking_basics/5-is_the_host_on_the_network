@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Checks for available hosts on a network and trouble shoots a given network.
+
+ping "$1"
