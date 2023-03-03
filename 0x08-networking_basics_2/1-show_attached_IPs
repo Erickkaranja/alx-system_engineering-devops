@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
+#shell script that lists all the ipv4 adress active on the machine.
 
-ip addr show | grep -Eo "inet (addr:)?([0-9]*\.){3}[0-9]*" | cut -b 6-
+ifconfig | grep -Eo "inet (addr:)?([0-9]*\.){3}[0-9]*" | cut -b 6-
