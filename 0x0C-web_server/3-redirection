@@ -6,18 +6,11 @@ apt-get install -y nginx
 mkdir /etc/nginx/html
 touch /etc/nginx/html/index.html
 
-echo "Hello World!" > /etc/nginx/html/index.html
+NGINX_CONF="/etc/nginx/nginx.conf"
 
-printf %s "server {
-  listen 80 default_server;
-  listen [::]:80 default_server;
-  root   /etc/nginx/html;
-  index  index.html index.htm;
-
-  location /redirect_me {
-     return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-  }
-}
-" > /etc/nginx/sites-available/default
+REDIRECT_BLOCK='location /redirect_me {
+    return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4}'
+sed -i '/location \/redirect_me {/ ,/}/d' "$NGINX_CONF"
+sed -i "\$a $REDIRECT_BLOCK" "$NGINX_CONF"
 
 service nginx restart
