@@ -3,8 +3,9 @@
 apt-get update
 apt-get install -y nginx
 
-mkdir /etc/nginx/html
-touch /etc/nginx/html/index.html
+sudo ufw allow "Nginx HTTP"
+sudo chown -R "$USER":"$USER" /var/www/html/index.nginx-debian.html
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
 
 NGINX_CONF="/etc/nginx/nginx.conf"
 
@@ -13,4 +14,4 @@ REDIRECT_BLOCK='location /redirect_me {
 sed -i '/location \/redirect_me {/ ,/}/d' "$NGINX_CONF"
 sed -i "\$a $REDIRECT_BLOCK" "$NGINX_CONF"
 
-service nginx restart
+sudo service nginx restart

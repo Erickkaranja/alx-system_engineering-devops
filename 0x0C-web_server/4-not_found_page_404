@@ -3,13 +3,15 @@
 apt-get update
 apt-get install -y nginx
 
-mkdir /etc/nginx/html
-touch /etc/nginx/html/index.html
+sudo ufw allow "Nginx HTTP"
+sudo chown -R "$USER":"$USER" /var/www/html/index.nginx-debian.html
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
 
-echo "Hello World!" > /etc/nginx/html/index.html
+NGINX_CONF="/etc/nginx/nginx.conf"
 
-touch /etc/nginx/html/404.html
-echo "Ceci n'est pas une page" > /etc/nginx/html/404.html
-
+REDIRECT_BLOCK='location /redirect_me {
+    return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4}'
+sed -i '/location \/redirect_me {/ ,/}/d' "$NGINX_CONF"
+sed -i "\$a $REDIRECT_BLOCK" "$NGINX_CONF"
 
 service nginx restart
