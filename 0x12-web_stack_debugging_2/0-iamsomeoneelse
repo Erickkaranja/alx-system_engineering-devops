@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
+# script that checks users in our system.
 cut -d: -f1 /etc/passwd | grep "$1"
