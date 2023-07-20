@@ -7,11 +7,16 @@ sudo ufw allow "Nginx HTTP"
 sudo chown -R "$USER":"$USER" /var/www/html/index.nginx-debian.html
 echo "Hello World!" > /var/www/html/index.nginx-debian.html
 
-NGINX_CONF="/etc/nginx/nginx.conf"
+NGINX_CONF="/etc/nginx/sites-available/default"
 
+# Define the redirect configuration block
 REDIRECT_BLOCK='location /redirect_me {
-    return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4}'
-sed -i '/location \/redirect_me {/ ,/}/d' "$NGINX_CONF"
+    return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+}'
+
+# Use sed to replace the existing configuration
+sed -i '/location \/redirect_me {/,/}/d' "$NGINX_CONF"
 sed -i "\$a $REDIRECT_BLOCK" "$NGINX_CONF"
 
-sudo service nginx restart
+# Restart Nginx for the changes to take effect
+sudo ervice nginx restart
